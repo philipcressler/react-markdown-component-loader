@@ -8,8 +8,9 @@ React Markdown (with Emojis and Components)
 
 
 This is a fork of [react-markdown-loader](https://github.com/javiercf/react-markdown-loader) with two subtle differences:
+
 1. It renders React components without displaying its source code. The original npm package was used for a React styleguide so it displayed the React component along with its source code. This version just renders the React component because I wanted custom components inside Markdown files.
-2. It supports emojis by using [remarkable-emoji](https://www.npmjs.com/package/remarkable-emoji)! Because emojis are awesome :clapping: 
+2. It supports emojis by using [remarkable-emoji](https://www.npmjs.com/package/remarkable-emoji)! Because emojis are awesome :clap: 
 
 **Original README below**
 
