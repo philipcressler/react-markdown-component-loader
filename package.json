@@ -1,24 +1,22 @@
 {
-  "name": "react-markdown-loader",
-  "version": "1.1.10",
+  "name": "react-markdown-component-loader",
+  "version": "1.0.0",
   "description": "Webpack loader to render React Components from markdown",
   "keywords": [
     "react",
-    "styleguide",
+    "emoji",
     "webpack",
     "loader",
-    "markdown"
+    "markdown",
+		"component"
   ],
-  "homepage": "https://github.com/javiercf/react-markdown-loader",
-  "bugs": "https://github.com/javiercf/react-markdown-loader/issues",
+  "homepage": "https://github.com/philipcressler/react-markdown-loader",
+  "bugs": "https://github.com/philipcressler/react-markdown-loader/issues",
   "license": "MIT",
-  "author": "Javier Cubides <javiercferrans@gmail.com>",
-  "contributors": [
-    "Fernando Pasik <fernando@pasik.com.ar> (http://fernandopasik.com/)"
-  ],
+  "author": "Philip Cressler  <philip.cressler@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/javiercf/react-markdown-loader.git"
+    "url": "https://github.com/philipcressler/react-markdown-loader.git"
   },
   "main": "src/index.js",
   "scripts": {
