@@ -1,12 +1,11 @@
 'use strict';
 
-const
-  frontMatter = require('front-matter'),
-  Prism = require('node-prismjs'),
-  Remarkable = require('remarkable'),
-  escapeHtml = require('remarkable/lib/common/utils').escapeHtml,
-  remarkable-emoji = require('remarkable-emoji'),
-	md = new Remarkable();
+const frontMatter = require('front-matter');
+const Prism = require('node-prismjs');
+const Remarkable = require('remarkable');
+const escapeHtml = require('remarkable/lib/common/utils').escapeHtml;
+const remarkableEmoji = require('remarkable-emoji');
+const md = new Remarkable();
 
 /**
  * Wraps the code and jsx in an html component
@@ -84,7 +83,7 @@ function parseMarkdown(markdown) {
     };
 
     md.set(options);
-		md.use(remarkable-emoji);
+		md.use(remarkableEmoji);
 
     md.renderer.rules.fence_custom.render = (tokens, idx, options) => {
       // gets tags applied to fence blocks ```react html
