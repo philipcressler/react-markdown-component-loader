@@ -1,6 +1,6 @@
 {
   "name": "react-markdown-component-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack loader to render React Components from markdown",
   "keywords": [
     "react",
@@ -8,15 +8,15 @@
     "webpack",
     "loader",
     "markdown",
-		"component"
+    "component"
   ],
-  "homepage": "https://github.com/philipcressler/react-markdown-loader",
-  "bugs": "https://github.com/philipcressler/react-markdown-loader/issues",
+  "homepage": "https://github.com/philipcressler/react-markdown-component-loader",
+  "bugs": "https://github.com/philipcressler/react-markdown-component-loader/issues",
   "license": "MIT",
   "author": "Philip Cressler  <philip.cressler@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/philipcressler/react-markdown-loader.git"
+    "url": "https://github.com/philipcressler/react-markdown-component-loader.git"
   },
   "main": "src/index.js",
   "scripts": {
