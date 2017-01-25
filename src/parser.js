@@ -5,7 +5,8 @@ const
   Prism = require('node-prismjs'),
   Remarkable = require('remarkable'),
   escapeHtml = require('remarkable/lib/common/utils').escapeHtml,
-  md = new Remarkable();
+  remarkable-emoji = require('remarkable-emoji'),
+	md = new Remarkable();
 
 /**
  * Wraps the code and jsx in an html component
@@ -19,11 +20,6 @@ function codeBlockTemplate(exampleRun, exampleSrc, langClass) {
   return `
 <div class="example">
   <div class="run">${exampleRun}</div>
-  <div class="source">
-    <pre><code${!langClass ? '' : ` class="${langClass}"`}>
-      ${exampleSrc}
-    </code></pre>
-  </div>
 </div>`;
 }
 
@@ -88,6 +84,7 @@ function parseMarkdown(markdown) {
     };
 
     md.set(options);
+		md.use(remarkable-emoji);
 
     md.renderer.rules.fence_custom.render = (tokens, idx, options) => {
       // gets tags applied to fence blocks ```react html
