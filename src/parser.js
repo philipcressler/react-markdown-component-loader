@@ -2,10 +2,10 @@
 
 const frontMatter = require('front-matter');
 const hljs = require('highlight.js');
-const Remarkable = require('remarkable');
 const escapeHtml = require('remarkable/lib/common/utils').escapeHtml;
-const remarkableEmoji = require('remarkable-emoji');
-const md = new Remarkable();
+const MarkdownIt = require('markdown-it');
+const md = new MarkdownIt();
+const emoji = require('markdown-it-emoji');
 
 /**
  * Wraps the code and jsx in an html component
@@ -15,16 +15,19 @@ const md = new Remarkable();
  * @param   {string} langClass  CSS class for the code block
  * @returns {string}            Code block with souce and run code
  */
-function codeBlockTemplate(exampleRun, exampleSrc, langClass) {
-  return `
-<div class="example">
-  <div class="run">${exampleRun}</div>
-  <div class="source">
-    <pre><code>
-      ${exampleSrc}
-    </code></pre>
-  </div>
-</div>`;
+function codeBlockTemplate(exampleRun, exampleSrc, langClass, render) {
+  if(render) {
+    return `
+      <div>
+        ${exampleRun}
+      </div>
+    `;
+  } else {
+    return `
+      <pre><code${!langClass ? '' : ` class="${langClass}"`}>
+        ${exampleSrc}
+      </code></pre>`;
+  }
 }
 
 /**
@@ -35,7 +38,7 @@ function codeBlockTemplate(exampleRun, exampleSrc, langClass) {
  * @param   {Function} highlight  - Code highlight function
  * @returns {String}                Code block with souce and run code
  */
-function parseCodeBlock(code, lang, langPrefix, highlight) {
+function parseCodeBlock(code, lang, langPrefix, highlight, render) {
   let codeBlock = escapeHtml(code);
 
   if (highlight) {
@@ -53,7 +56,7 @@ function parseCodeBlock(code, lang, langPrefix, highlight) {
     .replace(/(\n)/g, '{"\\n"}')
     .replace(/class=/g, 'className=');
 
-  return codeBlockTemplate(jsx, codeBlock, langClass);
+  return codeBlockTemplate(jsx, codeBlock, langClass, render);
 }
 
 /**
@@ -83,35 +86,41 @@ function parseMarkdown(markdown) {
       highlight(code, lang) {
         if (lang && hljs.getLanguage(lang)) {
           try {
-            return hljs.highlight(lang, str).value;
+            return hljs.highlight(lang, code).value;
           } catch (err) {}
         }
 
         try {
-          return hljs.highlightAuto(str).value;
+          return hljs.highlightAuto(code).value;
         } catch (err) {}
 
         return ''; // use external default escaping
       },
-      xhtmlOut: true
+      xhtmlOut: false
     };
-
+    
+  
     md.set(options);
-		md.use(remarkableEmoji);
-
-    md.renderer.rules.fence_custom.render = (tokens, idx, options) => {
+    md.use(emoji);
+    md.renderer.rules['fence'] = (tokens, idx, options) => {
       // gets tags applied to fence blocks ```react html
-      const codeTags = tokens[idx].params.split(/\s+/g);
+      const codeTags = tokens[idx].info.split(/\s+/g);
+      let render = false;
+      if(codeTags.indexOf('render') > -1) {
+        render = true;
+      }
       return parseCodeBlock(
         tokens[idx].content,
         codeTags[codeTags.length - 1],
         options.langPrefix,
-        options.highlight
+        options.highlight,
+        render
       );
     };
 
     try {
       html = md.render(markdown.body);
+     // html = marked(markdown.body);
       resolve({ html, attributes: markdown.attributes });
     } catch (err) {
       return reject(err);
