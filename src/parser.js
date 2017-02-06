@@ -1,7 +1,7 @@
 'use strict';
 
 const frontMatter = require('front-matter');
-const Prism = require('node-prismjs');
+const hljs = require('highlight.js');
 const Remarkable = require('remarkable');
 const escapeHtml = require('remarkable/lib/common/utils').escapeHtml;
 const remarkableEmoji = require('remarkable-emoji');
@@ -81,8 +81,17 @@ function parseMarkdown(markdown) {
 
     const options = {
       highlight(code, lang) {
-        const language = Prism.languages[lang] || Prism.languages.autoit;
-        return Prism.highlight(code, language);
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(lang, str).value;
+          } catch (err) {}
+        }
+
+        try {
+          return hljs.highlightAuto(str).value;
+        } catch (err) {}
+
+        return ''; // use external default escaping
       },
       xhtmlOut: true
     };
