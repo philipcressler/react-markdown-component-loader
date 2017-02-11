@@ -48,9 +48,9 @@
     "camelize": "^1.0.0",
     "except": "^0.1.3",
     "front-matter": "^2.1.0",
-    "node-prismjs": "^0.1.0",
-    "remarkable": "^1.6.2",
-    "remarkable-emoji": "^0.1.3"
+    "highlight.js": "^9.9.0",
+    "markdown-it": "^8.2.2",
+    "markdown-it-emoji": "^1.3.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
