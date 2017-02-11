@@ -1,4 +1,4 @@
-React Markdown (with Emojis and Components)
+React Markdown Component Loader (with Emojis)
 ==================
 
 [![npm version](https://img.shields.io/npm/v/react-markdown-loader.svg)](https://www.npmjs.com/package/react-markdown-loader)
@@ -7,24 +7,21 @@ React Markdown (with Emojis and Components)
 [![devDependencies Status](https://david-dm.org/javiercf/react-markdown-loader/dev-status.svg)](https://david-dm.org/javiercf/react-markdown-loader?type=dev)
 
 
-This is a fork of [react-markdown-loader](https://github.com/javiercf/react-markdown-loader) with two subtle differences:
+This is a fork of [react-markdown-loader](https://github.com/javiercf/react-markdown-loader) with a few _key_ differences.
 
 1. It renders React components without displaying its source code. The original npm package was used for a React styleguide so it displayed the React component along with its source code. This version just renders the React component because I wanted custom components inside Markdown files.
-2. It supports emojis by using [remarkable-emoji](https://www.npmjs.com/package/remarkable-emoji)! Because emojis are awesome :clap: 
+2. The original loader didn't allow for code blocks without a React component. This is fixed so now you specify whether you want the code block to be rendered as JSX or as a code example.
+3. It supports emojis by using [markdown-it-emoji](https://github.com/markdown-it/markdown-it-emoji)! Because emojis are awesome. Now you can use emojis in your markdown like you normally would on Github: `:clap:`! :clap:
 
-**Original README below**
+I adapted the original loader for the purpose of creating a React-driven blog using Markdown files as blog posts. This loader allows me to inject interactive React components into my Markdown files. :cake:
 
-This loader parses markdown files and converts them to a React Stateless Component.
-It will also parse FrontMatter to import dependencies and render components
-along with it’s source code.
+## How To Use
 
-We developed this loader in order to make the process of creating styleguides for
-React components easier
+Install it
 
-## Usage
+`npm install react-markdown-component-loader --save`
 
-In the FrontMatter you should import the components you want to render
-with the component name as a key and it's path as the value
+In your markdown file, you must import the components you want to render like so:
 
 ```markdown
 ---
@@ -40,7 +37,7 @@ module: {
   loaders: [
     {
       test: /\.md$/,
-      loader: 'babel!react-markdown'
+      loader: 'babel-loader!react-markdown-component-loader'
     }
   ]
 }
@@ -73,8 +70,7 @@ HelloWorld.defaultProps = {
 
 ```
 In the markdown File simply add the *render* tag to code fenceblocks you want the
-loader to compile as Components this will output the usual highlighted code
-and the rendered component.
+loader to compile as Components this will output the rendered component.
 
 *hello-world.md*
 
@@ -88,13 +84,13 @@ imports:
 
 This is an example component
 
-```render html
+```render
 &lt;HelloWorld /&gt;
 ```
 
 You can send who to say Hello
 
-```render html
+```render
 &lt;HelloWorld who="World!!!" /&gt;
 ```
 
