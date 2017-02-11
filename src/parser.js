@@ -96,7 +96,7 @@ function parseMarkdown(markdown) {
 
         return ''; // use external default escaping
       },
-      xhtmlOut: false
+      xhtmlOut: true
     };
     
   
