@@ -19,7 +19,7 @@ I adapted the original loader for the purpose of creating a React-driven blog us
 
 Install it
 
-`npm install react-markdown-component-loader --save`
+`npm install react-markdown-component-loader --save-dev`
 
 In your markdown file, you must import the components you want to render like so:
 
