@@ -6,7 +6,8 @@ const escapeHtml = require('remarkable/lib/common/utils').escapeHtml;
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
 const emoji = require('markdown-it-emoji');
-
+const markdownItMark = require('markdown-it-mark');
+const mila = require('markdown-it-link-attributes');
 /**
  * Wraps the code and jsx in an html component
  * for styling it later
@@ -102,6 +103,12 @@ function parseMarkdown(markdown) {
   
     md.set(options);
     md.use(emoji);
+    md.use(markdownItMark);
+    md.use(mila, {
+        target: '_blank',
+        rel: 'noopener',
+    });
+
     md.renderer.rules['fence'] = (tokens, idx, options) => {
       // gets tags applied to fence blocks ```react html
       const codeTags = tokens[idx].info.split(/\s+/g);
